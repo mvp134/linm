@@ -354,7 +354,7 @@ tbody tr:nth-child(even) .effect-cell { background: #f4f7f2; }
       button.setAttribute("aria-pressed",String(name===activeTab));
       button.append(document.createTextNode(name));
       const count=document.createElement("span"); count.textContent=DATA[name].length.toLocaleString(); button.append(count);
-      button.addEventListener("click",()=>{activeTab=name;searchEl.value="";clearEl.hidden=true;renderTabs();renderTable();scroller.scrollTo(0,0);});
+      button.addEventListener("click",()=>{activeTab=name;clearEl.hidden=!searchEl.value;renderTabs();renderTable();scroller.scrollTo(0,0);});
       tabsEl.append(button);
     });
   }
