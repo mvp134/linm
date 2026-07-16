@@ -249,7 +249,8 @@ th.sticky-name { z-index: 5; background: #0b3624; }
 .name-cell { background: #fff; font-weight: 800; color: #172a1d; }
 tbody tr:nth-child(even) .name-cell { background: #f4f7f2; }
 .effect-col, .effect-cell { min-width: 220px; }
-.effect-cell { color: #0d5535; font-weight: 750; }
+.effect-cell { background: #fff; color: #0d5535; font-weight: 750; }
+tbody tr:nth-child(even) .effect-cell { background: #f4f7f2; }
 
 .state-message {
   height: 100%;
@@ -281,9 +282,29 @@ tbody tr:nth-child(even) .name-cell { background: #f4f7f2; }
   .result-count strong { display: block; font-size: 17px; line-height: 1; }
   .drag-hint { margin-top: 5px; }
   .table-scroller { margin: 8px 7px 7px; border-radius: 11px; }
-  th, td { min-width: 150px; padding: 11px 12px; font-size: 12px; }
-  .sticky-name { min-width: 176px; max-width: 200px; }
-  .effect-col, .effect-cell { min-width: 178px; }
+  table { table-layout: fixed; }
+  th, td {
+    width: 90px;
+    min-width: 90px;
+    max-width: 90px;
+    padding: 10px 9px;
+    font-size: 12px;
+    line-height: 1.35;
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+  .sticky-name {
+    width: 90px;
+    min-width: 90px;
+    max-width: 90px;
+    word-break: keep-all;
+  }
+  .effect-col, .effect-cell {
+    width: 90px;
+    min-width: 90px;
+    max-width: 90px;
+    word-break: keep-all;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -350,7 +371,7 @@ tbody tr:nth-child(even) .name-cell { background: #f4f7f2; }
     resultEl.textContent=rows.length.toLocaleString(); allEl.textContent=` / ${source.length.toLocaleString()}개`;
     const table=document.createElement("table");
     const thead=document.createElement("thead"), headRow=document.createElement("tr");
-    addCell(headRow,"컬렉션 이름","th","sticky-name"); addCell(headRow,"효과","th","effect-col");
+    addCell(headRow,"효과","th","sticky-name effect-col"); addCell(headRow,"컬렉션 이름","th");
     for(let i=1;i<=maxItems;i++)addCell(headRow,`등록${activeTab} ${i}`,"th");
     addCell(headRow,activeTab==="아이템"?"구분":"서버 제한","th");
     if(activeTab==="아이템")addCell(headRow,"등급/분류","th");
@@ -358,7 +379,7 @@ tbody tr:nth-child(even) .name-cell { background: #f4f7f2; }
     const tbody=document.createElement("tbody");
     rows.forEach(row=>{
       const tr=document.createElement("tr");
-      addCell(tr,row.name,"td","sticky-name name-cell"); addCell(tr,row.effect||"–","td","effect-cell");
+      addCell(tr,row.effect||"–","td","sticky-name effect-cell"); addCell(tr,row.name,"td","name-cell");
       for(let i=0;i<maxItems;i++)addCell(tr,row.items[i]||"");
       addCell(tr,activeTab==="아이템"?row.category:row.classification);
       if(activeTab==="아이템")addCell(tr,row.classification);
